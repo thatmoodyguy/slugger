@@ -15,7 +15,7 @@ class Player
     players = {}
     CSV.foreach(file, headers: true) do |row|
       player = Player.new(row)
-      players[player.player_id] = player
+      players[player.player_id] = player unless player.player_id.nil?
     end
     players
   end
