@@ -46,12 +46,12 @@ class Slugger
     result
   end
 
-  def top_player_in_category_for_year(year, category, min_at_bats)
+  def top_league_player_in_category_for_year(year, league, category, min_at_bats)
     top_person_id = nil
     top_category_value = -9.999
     player_stats = BattingStatistic.stats_for_all_players_in_year(batting_stats, year)
     player_stats.each do |person_id, stats|
-      if stats[:at_bats] >= min_at_bats && stats[category.to_sym] && stats[category.to_sym] > top_category_value
+      if stats[:at_bats] >= min_at_bats && stats[:leagues].include?(league) && stats[category.to_sym] && stats[category.to_sym] > top_category_value
         top_person_id = person_id
         top_category_value = stats[category.to_sym]
       end
