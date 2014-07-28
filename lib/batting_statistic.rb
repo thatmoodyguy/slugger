@@ -51,6 +51,8 @@ class BattingStatistic
     stats.select {|p| p.year == year }.map(&:player_id).uniq
   end
 
+  private
+
   def self.stats_for_player_ids_in_year(stats, player_ids, year)
     players_stats = {}
     player_ids.each do |player_id|
@@ -58,8 +60,6 @@ class BattingStatistic
     end
     players_stats
   end
-
-  private
 
   def self.aggregate(array)
     stats = {
