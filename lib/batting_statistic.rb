@@ -46,6 +46,10 @@ class BattingStatistic
     stats.select {|p| p.team_id == team_id && p.year == year }.map(&:player_id).uniq
   end
 
+  def self.all_player_ids_for_year(stats, year)
+    stats.select {|p| p.year == year }.map(&:player_id).uniq
+  end
+
   private
 
   def self.aggregate(array)

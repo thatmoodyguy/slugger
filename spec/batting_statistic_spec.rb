@@ -118,4 +118,24 @@ describe "BattingStatistic class" do
       end
     end
   end
+
+  describe "all_player_ids_for_year" do
+    before do
+      file = File.expand_path '../data/stats.csv', __FILE__
+      @stats = BattingStatistic.load_from_data_file(file)
+    end
+
+    describe "when one or more matches is found" do
+      it "returns an array of player_ids" do
+        assert_equal BattingStatistic.all_player_ids_for_year(@stats, 2012).count, 2
+        assert BattingStatistic.all_player_ids_for_year(@stats, 2008).include?("abadijo01")
+      end
+    end
+
+    describe "when no matches are found" do
+      it "returns an empty array" do
+        assert_equal BattingStatistic.all_player_ids_for_year(@stats, 2016), []
+      end
+    end
+  end
 end
