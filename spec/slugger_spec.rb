@@ -52,4 +52,30 @@ describe "Slugger class" do
     end
 
   end
+
+  describe "top_player_in_category_for_year" do
+    before do
+      players_file = File.expand_path '../data/players.csv', __FILE__
+      stats_file = File.expand_path '../data/stats.csv', __FILE__
+      @slugger = Slugger.new(players_file, stats_file)
+    end
+
+    describe "with a valid category and sufficient at-bats" do
+      it "returns the correct person id" do
+        assert_equal "abadijo01", @slugger.top_player_in_category_for_year(2008, :home_runs, 10)
+        assert_equal "aaronto01", @slugger.top_player_in_category_for_year(2008, :at_bats, 10)
+      end
+    end
+    describe "with a valid category but insufficient at-bats" do
+      it "returns nil" do
+        assert_nil @slugger.top_player_in_category_for_year(2008, :home_runs, 1000)
+        assert_nil @slugger.top_player_in_category_for_year(2008, :at_bats, 1000)
+      end
+    end
+    describe "with an invalid category" do
+      it "returns nil" do
+        assert_nil @slugger.top_player_in_category_for_year(2008, :not_a_valid_category, 50)
+      end
+    end
+  end
 end
