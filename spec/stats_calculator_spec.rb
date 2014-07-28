@@ -38,4 +38,62 @@ describe "StatsCalculator class" do
 
   end
 
+  describe "slugging_percentage" do
+    describe "when all values are valid" do
+      before do
+        @hits = 20
+        @doubles = 5
+        @triples = 1
+        @home_runs = 3
+        @at_bats = 75
+      end
+
+      it "should properly calculate the value" do
+        assert_equal 0.48, StatsCalculator.slugging_percentage(@hits, @doubles, @triples, @home_runs, @at_bats)
+      end
+    end
+
+    describe "when hits is less than total of doubles, triples, and HRs" do
+      before do
+        @hits = 7
+        @doubles = 5
+        @triples = 1
+        @home_runs = 3
+        @at_bats = 75
+      end
+
+      it "should return a 0 slugging percentage" do
+        assert_equal 0, StatsCalculator.slugging_percentage(@hits, @doubles, @triples, @home_runs, @at_bats)
+      end
+    end
+
+    describe "when hits is more than at_bats" do
+      before do
+        @hits = 90
+        @doubles = 5
+        @triples = 1
+        @home_runs = 3
+        @at_bats = 75
+      end
+
+      it "should return a 0 slugging percentage" do
+        assert_equal 0, StatsCalculator.slugging_percentage(@hits, @doubles, @triples, @home_runs, @at_bats)
+      end
+    end
+
+    describe "when at_bats is zero" do
+      before do
+        @hits = 20
+        @doubles = 5
+        @triples = 1
+        @home_runs = 3
+        @at_bats = 0
+      end
+
+      it "should return a 0 slugging percentage" do
+        assert_equal 0, StatsCalculator.slugging_percentage(@hits, @doubles, @triples, @home_runs, @at_bats)
+      end
+    end
+  end
+
 end
