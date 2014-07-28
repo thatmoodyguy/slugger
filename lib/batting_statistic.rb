@@ -30,7 +30,24 @@ class BattingStatistic
   end
 
   def self.stats_for_player_and_year(stats, player_id, year)
-    stats.select {|s| s.player_id == player_id && s.year.to_i == year }
+    aggregate(stats.select {|s| s.player_id == player_id && s.year.to_i == year })
+  end
+
+  private
+
+  def self.aggregate(array)
+    {
+      :teams => array.map(&:team_id).uniq,
+      :leagues => array.map(&:league).uniq,
+      :games => array.map(&:games).inject(0, &:+),
+      :at_bats => array.map(&:at_bats).inject(0, &:+),
+      :runs => array.map(&:runs).inject(0, &:+),
+      :hits => array.map(&:hits).inject(0, &:+),
+      :doubles => array.map(&:doubles).inject(0, &:+),
+      :triples => array.map(&:triples).inject(0, &:+),
+      :home_runs => array.map(&:home_runs).inject(0, &:+),
+      :rbi => array.map(&:rbi).inject(0, &:+)
+    }
   end
 
 end

@@ -42,23 +42,31 @@ describe "BattingStatistic class" do
     end
 
     describe "when a player has played for only one team in that year" do
-      it "should return an array of one batting_statistic" do
+      it "should return a hash of statistics with the stats" do
         result = BattingStatistic.stats_for_player_and_year(@stats, "aasedo01", 2010)
-        assert_equal result.count, 1
-        assert_equal result.first.team_id, "HOU"
-        assert_equal result.first.at_bats, 1
+        assert_equal result[:teams], ["HOU"]
+        assert_equal result[:at_bats], 1
       end
     end
     describe "when a player has played for multiple teams that year" do
-      it "should return an array of two results" do
+      it "should return an hash of combined stats" do
         result = BattingStatistic.stats_for_player_and_year(@stats, "abadijo01", 2008)
-        assert_equal result.count, 2
+        assert_equal result[:teams].count, 2
+        assert result[:teams].include?("HOU")
+        assert result[:teams].include?("FLO")
+        assert_equal result[:at_bats], 131
+        assert_equal result[:hits], 32
+        assert_equal result[:doubles], 8
+        assert_equal result[:triples], 0
+        assert_equal result[:home_runs], 4
+        assert_equal result[:rbi], 10
       end
     end
     describe "when no data is available for that player/year combo" do
-      it "should return an empty array" do
+      it "should return a hash with empty values" do
         result = BattingStatistic.stats_for_player_and_year(@stats, "notaplayer", 2008)
-        assert_equal result, []
+        assert_equal result[:teams], []
+        assert_equal result[:at_bats], 0
       end
     end
   end
