@@ -1,5 +1,4 @@
 require File.expand_path '../spec_helper.rb', __FILE__
-require File.expand_path '../../lib/stats_calculator', __FILE__
 
 describe "StatsCalculator class" do
   describe "batting_average" do

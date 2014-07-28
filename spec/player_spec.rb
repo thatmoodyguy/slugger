@@ -1,5 +1,4 @@
 require File.expand_path '../spec_helper.rb', __FILE__
-require File.expand_path '../../lib/player', __FILE__
 
 describe "Player class" do
   describe "when initialized with a CSV row" do
