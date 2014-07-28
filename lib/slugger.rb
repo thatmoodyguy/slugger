@@ -46,6 +46,16 @@ class Slugger
     result
   end
 
+  def triple_crown_winner(year, league, min_at_bats)
+    person_id = top_league_player_in_category_for_year(year, league, :batting_average, min_at_bats)
+    if person_id && person_id == top_league_player_in_category_for_year(year, league, :home_runs, min_at_bats)
+      if person_id == top_league_player_in_category_for_year(year, league, :rbi, min_at_bats)
+        return person_id
+      end
+    end
+    nil
+  end
+
   def top_league_player_in_category_for_year(year, league, category, min_at_bats)
     top_person_id = nil
     top_category_value = -9.999

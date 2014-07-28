@@ -82,4 +82,25 @@ describe "Slugger class" do
       end
     end
   end
+
+  describe "triple_crown_winner" do
+    before do
+      players_file = File.expand_path '../data/players.csv', __FILE__
+      stats_file = File.expand_path '../data/stats.csv', __FILE__
+      @slugger = Slugger.new(players_file, stats_file)
+    end
+
+    describe "when there is a triple crown winner for the league/year" do
+      it "returns the person_id of the winner" do
+        assert_equal "abadijo01", @slugger.triple_crown_winner(2008, 'NL', 10)
+        assert_equal "aaronto01", @slugger.triple_crown_winner(2008, 'AL', 10)
+      end
+    end
+
+    describe "when there is no triple crown winner for the league that year" do
+      it "returns nil" do
+        assert_nil @slugger.triple_crown_winner(2014, 'AL', 20)
+      end
+    end
+  end
 end
