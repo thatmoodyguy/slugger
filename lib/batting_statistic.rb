@@ -29,4 +29,8 @@ class BattingStatistic
     stats
   end
 
+  def self.stats_for_player_and_year(stats, player_id, year)
+    stats.select {|s| s.player_id == player_id && s.year.to_i == year }
+  end
+
 end

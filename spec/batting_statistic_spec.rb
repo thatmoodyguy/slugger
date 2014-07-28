@@ -34,4 +34,32 @@ describe "BattingStatistic class" do
     end
 
   end
+
+  describe "stats_for_player_and_year" do
+    before do
+      file = File.expand_path '../data/stats.csv', __FILE__
+      @stats = BattingStatistic.load_from_data_file(file)
+    end
+
+    describe "when a player has played for only one team in that year" do
+      it "should return an array of one batting_statistic" do
+        result = BattingStatistic.stats_for_player_and_year(@stats, "aasedo01", 2010)
+        assert_equal result.count, 1
+        assert_equal result.first.team_id, "HOU"
+        assert_equal result.first.at_bats, 1
+      end
+    end
+    describe "when a player has played for multiple teams that year" do
+      it "should return an array of two results" do
+        result = BattingStatistic.stats_for_player_and_year(@stats, "abadijo01", 2008)
+        assert_equal result.count, 2
+      end
+    end
+    describe "when no data is available for that player/year combo" do
+      it "should return an empty array" do
+        result = BattingStatistic.stats_for_player_and_year(@stats, "notaplayer", 2008)
+        assert_equal result, []
+      end
+    end
+  end
 end
