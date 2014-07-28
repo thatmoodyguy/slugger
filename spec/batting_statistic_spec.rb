@@ -23,4 +23,16 @@ describe "BattingStatistic class" do
       assert_equal stat.rbi, 5
     end
   end
+
+  describe "load_from_data_file" do
+    before do
+      file = File.expand_path '../data/stats.csv', __FILE__
+      @stats = BattingStatistic.load_from_data_file(file)
+    end
+
+    it "should have the proper number of items" do
+      assert_equal @stats.count, 10
+    end
+
+  end
 end

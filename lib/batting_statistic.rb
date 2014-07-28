@@ -20,4 +20,13 @@ class BattingStatistic
     self.rbi = csv_row["RBI"]
   end
 
+  def self.load_from_data_file(file)
+    stats = []
+    CSV.foreach(file, headers: true) do |row|
+      stat = BattingStatistic.new(row)
+      stats << stat
+    end
+    stats
+  end
+
 end
