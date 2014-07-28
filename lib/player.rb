@@ -9,7 +9,15 @@ class Player
     self.birth_year = csv_row["birthYear"]
     self.first_name = csv_row["nameFirst"]
     self.last_name = csv_row["nameLast"]
+  end
 
+  def self.load_from_data_file(file)
+    players = {}
+    CSV.foreach(file, headers: true) do |row|
+      player = Player.new(row)
+      players[player.player_id] = player
+    end
+    players
   end
 
 end

@@ -16,4 +16,20 @@ describe "Player class" do
       assert_equal player.last_name, "Aaron"
     end
   end
+
+  describe "load_from_data_file" do
+    before do
+      file = File.expand_path '../data/players.csv', __FILE__
+      @players = Player.load_from_data_file(file)
+    end
+
+    it "should have the proper number of items" do
+      assert_equal @players.keys.count, 5
+    end
+
+    it "should be accessible by player ID" do
+      assert_equal @players["abadan01"].first_name, "Andy"
+      assert_equal @players["abadan01"].last_name, "Abad"
+    end
+  end
 end
