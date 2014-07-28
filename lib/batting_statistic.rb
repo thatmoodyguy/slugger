@@ -36,7 +36,7 @@ class BattingStatistic
   private
 
   def self.aggregate(array)
-    {
+    stats = {
       :teams => array.map(&:team_id).uniq,
       :leagues => array.map(&:league).uniq,
       :games => array.map(&:games).inject(0, &:+),
@@ -46,8 +46,19 @@ class BattingStatistic
       :doubles => array.map(&:doubles).inject(0, &:+),
       :triples => array.map(&:triples).inject(0, &:+),
       :home_runs => array.map(&:home_runs).inject(0, &:+),
-      :rbi => array.map(&:rbi).inject(0, &:+)
+      :rbi => array.map(&:rbi).inject(0, &:+),
     }
+    stats[:batting_average] = StatsCalculator.batting_average(
+                                              stats[:hits],
+                                              stats[:at_bats])
+    stats[:slugging_percentage] = StatsCalculator.slugging_percentage(
+                                                    stats[:hits],
+                                                    stats[:doubles],
+                                                    stats[:triples],
+                                                    stats[:home_runs],
+                                                    stats[:at_bats]
+                                                  )
+    stats
   end
 
 end

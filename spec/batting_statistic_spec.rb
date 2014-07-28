@@ -47,6 +47,11 @@ describe "BattingStatistic class" do
         assert_equal result[:teams], ["HOU"]
         assert_equal result[:at_bats], 1
       end
+      it "should include the batting average and slugging percentage" do
+        result = BattingStatistic.stats_for_player_and_year(@stats, "aasedo01", 2010)
+        assert !result[:batting_average].nil?
+        assert !result[:slugging_percentage].nil?
+      end
     end
     describe "when a player has played for multiple teams that year" do
       it "should return an hash of combined stats" do
@@ -60,6 +65,8 @@ describe "BattingStatistic class" do
         assert_equal result[:triples], 0
         assert_equal result[:home_runs], 4
         assert_equal result[:rbi], 10
+        assert_equal result[:batting_average].round(3), 0.244
+        assert_equal result[:slugging_percentage].round(3), 0.397
       end
     end
     describe "when no data is available for that player/year combo" do
