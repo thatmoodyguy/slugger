@@ -3,7 +3,6 @@ class Slugger
   attr_accessor :players, :batting_stats
 
   def initialize(player_data_file = nil, stats_data_file = nil)
-    puts "Slugger is loading and analyzing your data..."
     player_file = player_data_file || File.expand_path('../../data/Master-small.csv', __FILE__)
     stats_file = stats_data_file || File.expand_path('../../data/Batting-07-12.csv', __FILE__)
     self.players = Player.load_from_data_file(player_file)
@@ -13,6 +12,12 @@ class Slugger
   def run
     most_improved_batter = batter_with_most_improved_batting_average(2009, 2010)
     puts "The most improved batting average from 2007 to 2008: #{most_improved_batter}."
+    oakland_2007_stats = team_player_slugging_percentages_for_year("OAK", 2007)
+    puts "Slugging percentages for Oakland players in 2007:"
+    oakland_2007_stats.each do |o|
+      puts "#{o[0].to_s} - #{o[1].round(3)}"
+    end
+
   end
 
   def batter_with_most_improved_batting_average(original_year, new_year)
@@ -31,5 +36,16 @@ class Slugger
     end
     top_player
   end
+
+  def team_player_slugging_percentages_for_year(team_id, year)
+    result = []
+    players_stats = BattingStatistic.stats_for_all_players_on_team_in_year(batting_stats, team_id, year)
+    players_stats.each do |player_id, stats|
+      result << [players[player_id], stats[:slugging_percentage]]
+    end
+    result
+  end
+
+
 
 end

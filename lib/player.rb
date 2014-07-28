@@ -24,4 +24,8 @@ class Player
     "#{first_name} #{last_name}"
   end
 
+  def self.player_ids_on_team_for_year(stats, team_id, year)
+    stats.select {|p| p.team_id == team_id && p.year == year }.map(:player_id).uniq
+  end
+
 end
