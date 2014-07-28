@@ -17,4 +17,17 @@ describe "Slugger class" do
     end
   end
 
+  describe "batter_with_most_improved_batting_average" do
+    before do
+      players_file = File.expand_path '../data/players.csv', __FILE__
+      stats_file = File.expand_path '../data/stats.csv', __FILE__
+      @slugger = Slugger.new(players_file, stats_file)
+    end
+
+    it "successfully returns the right player" do
+      assert_equal "aaronto01", @slugger.batter_with_most_improved_batting_average(2007, 2008).player_id
+    end
+
+  end
+
 end
