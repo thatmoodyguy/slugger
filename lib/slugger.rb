@@ -17,7 +17,13 @@ class Slugger
     oakland_2007_stats.each do |o|
       puts "#{o[0].to_s} - #{o[1].round(3)}"
     end
-
+    [2011, 2012].each do |year|
+      ["AL", "NL"].each do |league|
+        winner_id = triple_crown_winner(year, league, 400)
+        winner = players[winner_id] || nil
+        puts "#{league} Triple Crown Winner for #{year}: #{winner ? winner.to_s : '(No winner)'}"
+      end
+    end
   end
 
   def batter_with_most_improved_batting_average(original_year, new_year)
