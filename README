@@ -1,1 +1,42 @@
 Slugger - batting stats calculator
+all code (c) 2014 by John Moody (john@mentalvelocity.com)
+
+Instructions
+
+No installation is required, assuming you have a working copy of Ruby 2.1.
+
+To execute the program from the command line (in the root folder of this
+application), just type
+
+  ruby slugger.rb
+
+All output will be delivered to the console.
+
+Test suite
+
+The application uses minitest for testing. To run the test suite, type:
+
+  rake test
+
+Notes
+
+This application serves as a coding exercise in which I was given written
+instructions, but no means to ask further questions. Therefore, when there
+were ambiguities in the instructions, rather than ask for clarification from
+my "client", I was forced to make a decision. In a real-world situation, I
+would have much preferred to ask rather than assume! (Also, I am not a baseball
+stats nut, so my knowledge of the stats are limited to the instructions I was
+given.)
+
+The assumptions I have made are as follows:
+
+1.  I have assumed that a player can play for multiple teams in a given year.
+2.  When you asked for the "slugging percentage for all players on the Oakland"
+    "A's in 2007", I have interpreted that to mean that you are looking for the
+    slugging percentage for each player who served any time on the Oakland roster
+    in 2007, and furthermore that you want their slugging percentages for the entire
+    year, not just their time in Oakland (if they were on multiple rosters that year).
+3.  In the event that a player has played for rosters in both the NL and AL,
+    he would be eligible for Triple Crown consideration for both leagues, but his
+    entire stats line for that season (in both leagues) would be the basis for Triple
+    Crown calculations.
