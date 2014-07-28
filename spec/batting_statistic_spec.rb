@@ -99,6 +99,27 @@ describe "BattingStatistic class" do
     end
   end
 
+  describe "stats_for_all_players_in_year" do
+    before do
+      file = File.expand_path '../data/stats.csv', __FILE__
+      @stats = BattingStatistic.load_from_data_file(file)
+    end
+
+    describe "when one or more players have played that year" do
+      it "should return a hash of player_ids with statistics" do
+        result = BattingStatistic.stats_for_all_players_in_year(@stats, 2012)
+        assert_equal result.keys.count, 2
+      end
+    end
+
+    describe "when no data is available for that year" do
+      it "should return a hash with empty values" do
+        result = BattingStatistic.stats_for_all_players_in_year(@stats, 2016)
+        assert_equal result, {}
+      end
+    end
+  end
+
   describe "player_ids_on_team_for_year" do
     before do
       file = File.expand_path '../data/stats.csv', __FILE__
