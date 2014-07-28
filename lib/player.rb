@@ -6,7 +6,7 @@ class Player
   def initialize(csv_row)
     return unless csv_row
     self.player_id = csv_row["playerID"]
-    self.birth_year = csv_row["birthYear"]
+    self.birth_year = csv_row["birthYear"].to_i
     self.first_name = csv_row["nameFirst"]
     self.last_name = csv_row["nameLast"]
   end
